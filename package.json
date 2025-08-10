@@ -1,0 +1,43 @@
+{
+  "name": "react-microfrontend-setup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-quality React + TypeScript multi-app setup with TanStack Start and Module Federation",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:remote\" \"pnpm dev:host\"",
+    "dev:host": "cd apps/host && pnpm dev",
+    "dev:remote": "cd apps/remote && pnpm dev",
+    "build": "pnpm build:remote && pnpm build:host",
+    "build:host": "cd apps/host && pnpm build",
+    "build:remote": "cd apps/remote && pnpm build",
+    "test": "pnpm -r test",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier --write .",
+    "type-check": "pnpm -r type-check",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

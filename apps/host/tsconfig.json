@@ -1,0 +1,31 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@shared/types": [
+                "../../packages/shared-types/src"
+            ],
+            "@ui/contracts": [
+                "../../packages/ui-contracts/src"
+            ]
+        },
+        "types": [
+            "vite/client",
+            "vitest/globals"
+        ]
+    },
+    "include": [
+        "src/**/*",
+        "vite.config.ts",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+}
