@@ -1,4 +1,6 @@
-# React + TypeScript Microfrontend Setup
+# FedStack
+
+_Modern React + TypeScript Microfrontend Architecture_
 
 ## 🚀 Overview
 

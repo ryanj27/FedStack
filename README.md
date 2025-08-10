@@ -1,4 +1,6 @@
-# React Microfrontend Setup ✅
+# FedStack ✅
+
+_Modern React + TypeScript Microfrontend Architecture_
 
 A production-quality React + TypeScript multi-app setup using TanStack Router, Vite + Module Federation, and Material UI.
 

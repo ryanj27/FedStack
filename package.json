@@ -1,5 +1,5 @@
 {
-  "name": "react-microfrontend-setup",
+  "name": "fedstack",
   "version": "1.0.0",
   "private": true,
   "description": "Production-quality React + TypeScript multi-app setup with TanStack Router and Module Federation",
