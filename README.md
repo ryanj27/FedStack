@@ -10,8 +10,9 @@ A production-quality React + TypeScript multi-app setup using TanStack Router, V
 
 This project demonstrates a microfrontend architecture with:
 
-- **Host Application** (port 5177): Main application shell with routing and theme management
-- **Remote Application** (port 5176): Federated components and pages that are consumed by the host
+- **Host Application** (port 3000): Main application shell with routing and theme management
+- **Remote Application** (port 3001): User management components and federated pages
+- **Analytics Application** (port 3002): Business metrics and analytics dashboard
 - **Shared Packages**: Type-safe contracts and shared TypeScript definitions
 
 ## Tech Stack
@@ -40,7 +41,7 @@ This project demonstrates a microfrontend architecture with:
 
 ### Development
 
-Run both applications concurrently:
+Run all applications concurrently:
 
 ```bash
 pnpm dev
@@ -49,16 +50,19 @@ pnpm dev
 Or run individually:
 
 ```bash
-# Host application (localhost:5177)
+# Host application (localhost:3000)
 pnpm dev:host
 
-# Remote application (localhost:5176)
+# Remote application (localhost:3001)
 pnpm dev:remote
+
+# Analytics application (localhost:3002)
+pnpm dev:analytics
 ```
 
 ### Production Build
 
-Build both applications:
+Build all applications:
 
 ```bash
 pnpm build
@@ -69,6 +73,7 @@ Build individually:
 ```bash
 pnpm build:host
 pnpm build:remote
+pnpm build:analytics
 ```
 
 ### Testing
@@ -99,9 +104,10 @@ pnpm type-check
 
 ### Module Federation
 
-- Host app consumes remote components dynamically
-- Shared dependencies (React, MUI) across applications
-- Independent deployment capabilities
+- Host app consumes components from multiple remote applications
+- Shared dependencies (React, MUI, TanStack libraries) across all applications
+- Independent deployment capabilities for each microfrontend
+- Multi-remote architecture demonstrating scalable federation patterns
 
 ### Theme Integration
 
@@ -127,14 +133,19 @@ pnpm type-check
 ├── apps/
 │   ├── host/                 # Main application shell
 │   │   ├── src/
-│   │   │   ├── routes/       # TanStack Start routes
+│   │   │   ├── routes/       # TanStack Router routes
 │   │   │   ├── components/   # Host-specific components
 │   │   │   └── theme/        # Theme configuration
 │   │   └── vite.config.ts    # Module Federation config
-│   └── remote/               # Remote microfrontend
+│   ├── remote/               # Remote microfrontend (User Management)
+│   │   ├── src/
+│   │   │   ├── components/   # Federated components
+│   │   │   └── routes/       # Standalone routes
+│   │   └── vite.config.ts    # Federation exports
+│   └── analytics/            # Analytics microfrontend (Business Metrics)
 │       ├── src/
-│       │   ├── components/   # Federated components
-│       │   └── routes/       # Standalone routes
+│       │   ├── components/   # Analytics components
+│       │   └── routes/       # Analytics routes
 │       └── vite.config.ts    # Federation exports
 ├── packages/
 │   ├── shared-types/         # Common TypeScript types
@@ -144,17 +155,26 @@ pnpm type-check
 
 ## Component Federation
 
-### Exposed Components (Remote)
+### Exposed Components
+
+**Remote Application (User Management):**
 
 - `UserCard`: Displays user information with actions
 - `FederatedPage`: Complete page component with navigation
 - `RemoteApp`: Standalone application entry point
 
+**Analytics Application (Business Metrics):**
+
+- `MetricsSummary`: Dashboard widget showing key business metrics
+- `AnalyticsPage`: Complete analytics dashboard with charts and tabs
+- `AnalyticsApp`: Standalone analytics application entry point
+
 ### Consumed Components (Host)
 
 - Remote components are lazy-loaded with error boundaries
-- Theme context is automatically passed to remote components
+- Theme context is automatically passed to all remote components
 - Type-safe props via shared contracts
+- Multi-remote architecture with fault isolation
 
 ## Environment Variables
 
@@ -163,7 +183,8 @@ pnpm type-check
 ```env
 VITE_API_URL=http://localhost:3001/api
 VITE_APP_NAME=Host Application
-VITE_REMOTE_URL=http://localhost:5174
+VITE_REMOTE_URL=http://localhost:3001
+VITE_ANALYTICS_URL=http://localhost:3002
 ```
 
 ### Remote Application (.env)
@@ -173,40 +194,53 @@ VITE_API_URL=http://localhost:3001/api
 VITE_APP_NAME=Remote Application
 ```
 
+### Analytics Application (.env)
+
+```env
+VITE_API_URL=http://localhost:3001/api
+VITE_APP_NAME=Analytics Application
+```
+
 ## Performance Considerations
 
-- Code splitting via TanStack Start's lazy loading
-- Shared dependencies to avoid duplication
+- Code splitting via TanStack Router's lazy loading
+- Shared dependencies to avoid duplication across all remotes
 - Tree shaking for optimal bundle sizes
 - Emotion-based MUI styles work efficiently with Module Federation
+- Multi-remote architecture with independent deployment cycles
 
 ## Future Enhancements
 
 Possible improvements and extensions:
 
 1. **SSR Integration**: Add server-side rendering with TanStack Start
-2. **CI/CD Pipeline**: Automated testing and deployment
+2. **CI/CD Pipeline**: Automated testing and deployment for all applications
 3. **Bundle Analysis**: Webpack Bundle Analyzer integration
-4. **Authentication**: Shared authentication state across apps
+4. **Authentication**: Shared authentication state across all apps
 5. **Error Boundaries**: Enhanced error handling for federation failures
 6. **Advanced Federation**: Version management and graceful degradation
-7. **Monitoring**: Performance monitoring and error tracking
+7. **Monitoring**: Performance monitoring and error tracking across remotes
 8. **State Management**: Shared state via Zustand or Redux Toolkit
+9. **Additional Remotes**: Extend to more specialized microfrontends
+10. **Container Orchestration**: Docker setup for development and deployment
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Remote component not loading**: Check that remote app is running on port 3001
+1. **Remote component not loading**: Check that remote apps are running on correct ports (3001, 3002)
 2. **Theme not applying**: Ensure ThemeProvider is wrapping remote components
 3. **Type errors**: Run `pnpm type-check` to verify all type definitions
 4. **Hot reload not working**: Restart development servers
+5. **Analytics widget not showing**: Verify analytics app is running on port 3002
 
 ### Development Tips
 
 - Use browser dev tools to inspect Module Federation loading
-- Check network tab for remote entry point requests
+- Check network tab for remote entry point requests (remoteEntry.js)
 - Use React dev tools to verify theme context propagation
+- Test each remote application independently before integration
+- Monitor console for federation loading errors
 
 ## License
 
