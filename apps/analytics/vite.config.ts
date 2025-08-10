@@ -1,4 +1,4 @@
-// Vite configuration for Host application with Module Federation
+// Vite configuration for Analytics application with Module Federation
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -8,23 +8,12 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'host',
-      remotes: {
-        remote: {
-          type: 'module',
-          name: 'remote',
-          entry: 'http://localhost:3001/remoteEntry.js',
-          entryGlobalName: 'remote',
-          shareScope: 'default',
-        },
-        // ADDED: Analytics remote for multi-remote federation
-        analytics: {
-          type: 'module',
-          name: 'analytics',
-          entry: 'http://localhost:3002/remoteEntry.js',
-          entryGlobalName: 'analytics',
-          shareScope: 'default',
-        },
+      name: 'analytics',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './MetricsSummary': './src/components/MetricsSummary.tsx',
+        './AnalyticsPage': './src/components/AnalyticsPage.tsx',
+        './AnalyticsApp': './src/App.tsx',
       },
       shared: {
         react: {
@@ -58,11 +47,11 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 3003,
     host: true,
   },
   preview: {
-    port: 3000,
+    port: 3003,
     host: true,
   },
   build: {

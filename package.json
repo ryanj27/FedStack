@@ -2,18 +2,20 @@
   "name": "react-microfrontend-setup",
   "version": "1.0.0",
   "private": true,
-  "description": "Production-quality React + TypeScript multi-app setup with TanStack Start and Module Federation",
+  "description": "Production-quality React + TypeScript multi-app setup with TanStack Router and Module Federation",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm dev:remote\" \"pnpm dev:host\"",
+    "dev": "concurrently \"pnpm dev:remote\" \"pnpm dev:analytics\" \"pnpm dev:host\"",
     "dev:host": "cd apps/host && pnpm dev",
     "dev:remote": "cd apps/remote && pnpm dev",
-    "build": "pnpm build:remote && pnpm build:host",
+    "dev:analytics": "cd apps/analytics && pnpm dev",
+    "build": "pnpm build:remote && pnpm build:analytics && pnpm build:host",
     "build:host": "cd apps/host && pnpm build",
     "build:remote": "cd apps/remote && pnpm build",
+    "build:analytics": "cd apps/analytics && pnpm build",
     "test": "pnpm -r test",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "pnpm lint --fix",

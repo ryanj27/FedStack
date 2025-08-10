@@ -17,6 +17,7 @@ import {
   People as PeopleIcon,
   Apps as AppsIcon,
   BugReport as DebugIcon,
+  Analytics as AnalyticsIcon,
 } from '@mui/icons-material';
 import { Link } from '@tanstack/react-router';
 import { useTheme } from '../theme/ThemeContext';
@@ -57,6 +58,16 @@ export const Navigation: React.FC = () => {
             startIcon={<AppsIcon />}
           >
             Federated
+          </Button>
+
+          {/* ADDED: Analytics navigation for multi-remote federation */}
+          <Button
+            color="inherit"
+            component={Link}
+            to="/analytics"
+            startIcon={<AnalyticsIcon />}
+          >
+            Analytics
           </Button>
 
           <Button

@@ -10,92 +10,138 @@ import {
   CardContent,
   CardActions,
   Button,
+  CircularProgress,
 } from '@mui/material';
-import { Home as HomeIcon, Apps as AppsIcon } from '@mui/icons-material';
+import {
+  Home as HomeIcon,
+  Apps as AppsIcon,
+  Analytics as AnalyticsIcon,
+} from '@mui/icons-material';
+// ADDED: Lazy load analytics widget for multi-remote demonstration
+import { lazy, Suspense } from 'react';
+
+const RemoteMetricsSummary = lazy(() =>
+  import('analytics/MetricsSummary').catch(() => ({
+    default: () => (
+      <Box p={2} textAlign="center">
+        <Typography color="error" variant="body2">
+          Analytics widget unavailable
+        </Typography>
+      </Box>
+    ),
+  }))
+);
 
 export function IndexComponent() {
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h2" component="h1" gutterBottom>
-          <HomeIcon sx={{ mr: 2, verticalAlign: 'middle' }} />
-          Welcome to the Host Application
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <HomeIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
+        <Typography variant="h3" component="h1" gutterBottom>
+          Welcome to Microfrontend Host
         </Typography>
-        <Typography variant="h5" color="text.secondary" paragraph>
-          A production-quality microfrontend setup with Module Federation
+        <Typography variant="h6" color="text.secondary" paragraph>
+          A Module Federation demonstration with multiple remote applications
         </Typography>
       </Box>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="h2" gutterBottom>
-                <AppsIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-                Host Features
+      {/* Analytics Widget Section */}
+      <Grid container spacing={3} sx={{ mb: 3 }}>
+        <Grid item xs={12}>
+          <Paper elevation={2} sx={{ p: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <AnalyticsIcon sx={{ mr: 1, color: 'primary.main' }} />
+              <Typography variant="h6" component="h3">
+                Real-time Analytics
               </Typography>
-              <Typography variant="body1" paragraph>
-                This host application demonstrates:
-              </Typography>
-              <Box component="ul" sx={{ pl: 2 }}>
-                <li>TanStack Router routing</li>
-                <li>Material UI theming with dark mode</li>
-                <li>TanStack Query for data fetching</li>
-                <li>Module Federation setup</li>
-                <li>TypeScript with strict mode</li>
-              </Box>
-            </CardContent>
-            <CardActions>
-              <Button href="/federated" variant="contained">
-                View Federated Page
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="h2" gutterBottom>
-                Remote Components
-              </Typography>
-              <Typography variant="body1" paragraph>
-                The remote application exposes components that are dynamically
-                loaded:
-              </Typography>
-              <Box component="ul" sx={{ pl: 2 }}>
-                <li>UserCard component</li>
-                <li>FederatedPage route</li>
-                <li>Shared theme inheritance</li>
-                <li>Type-safe interfaces</li>
-              </Box>
-            </CardContent>
-            <CardActions>
-              <Button href="/users" variant="outlined">
-                View Users
-              </Button>
-            </CardActions>
-          </Card>
+            </Box>
+            <Suspense
+              fallback={
+                <Box display="flex" justifyContent="center" p={3}>
+                  <CircularProgress size={40} />
+                </Box>
+              }
+            >
+              <RemoteMetricsSummary />
+            </Suspense>
+          </Paper>
         </Grid>
       </Grid>
 
-      <Paper
-        sx={{
-          mt: 4,
-          p: 3,
-          backgroundColor: 'primary.main',
-          color: 'primary.contrastText',
-        }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Architecture Highlights
-        </Typography>
-        <Typography variant="body1">
-          This setup demonstrates production-ready patterns including shared
-          dependencies, theme propagation, type safety across microfrontends,
-          and modern development tooling with hot reload support.
-        </Typography>
-      </Paper>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Card elevation={3}>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <AppsIcon sx={{ mr: 1, color: 'primary.main' }} />
+                <Typography variant="h5" component="h2">
+                  Remote Applications
+                </Typography>
+              </Box>
+              <Typography variant="body1" paragraph>
+                This host application dynamically loads components from multiple
+                remote microfrontends, demonstrating the power of Module
+                Federation.
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Navigate to explore federated components and pages.
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                href="/federated"
+                sx={{ textTransform: 'none' }}
+              >
+                View Federated Components
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+            <Typography variant="h6" gutterBottom>
+              Architecture Overview
+            </Typography>
+            <Typography variant="body2" paragraph>
+              • <strong>Host App:</strong> Main application shell (Port 3000)
+            </Typography>
+            <Typography variant="body2" paragraph>
+              • <strong>Remote App:</strong> User management components (Port
+              3001)
+            </Typography>
+            <Typography variant="body2" paragraph>
+              • <strong>Analytics Remote:</strong> Business metrics and
+              dashboards (Port 3002)
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              All remotes share common dependencies and theming for consistency.
+            </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Paper elevation={2} sx={{ p: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <AnalyticsIcon sx={{ mr: 1, color: 'primary.main' }} />
+              <Typography variant="h6" component="h3">
+                Live Analytics Dashboard
+              </Typography>
+            </Box>
+            <Suspense
+              fallback={
+                <Box display="flex" justifyContent="center" p={3}>
+                  <CircularProgress />
+                </Box>
+              }
+            >
+              <RemoteMetricsSummary />
+            </Suspense>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

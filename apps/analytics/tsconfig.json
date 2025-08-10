@@ -1,0 +1,26 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@shared/types": [
+                "../../packages/shared-types/src"
+            ],
+            "@ui/contracts": [
+                "../../packages/ui-contracts/src"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

@@ -25,12 +25,18 @@ This project demonstrates a production-quality microfrontend architecture using:
 │   │   │   ├── theme/            # Theme context and configuration
 │   │   │   └── types/            # Module federation types
 │   │   └── vite.config.ts        # Host Vite + MF config
-│   └── remote/                    # Remote application (Microfrontend)
+│   ├── remote/                    # Remote application (User Management)
+│   │   ├── src/
+│   │   │   ├── components/        # Federated components
+│   │   │   ├── routes/           # Remote routes
+│   │   │   └── __tests__/        # Component tests
+│   │   └── vite.config.ts        # Remote Vite + MF config
+│   └── analytics/                 # Analytics application (Business Metrics)
 │       ├── src/
-│       │   ├── components/        # Federated components
-│       │   ├── routes/           # Remote routes
+│       │   ├── components/        # Analytics components
+│       │   ├── routes/           # Analytics routes
 │       │   └── __tests__/        # Component tests
-│       └── vite.config.ts        # Remote Vite + MF config
+│       └── vite.config.ts        # Analytics Vite + MF config
 └── packages/                      # Shared packages
     ├── shared-types/              # Common TypeScript types
     └── ui-contracts/              # Component interface contracts
@@ -49,12 +55,13 @@ This project demonstrates a production-quality microfrontend architecture using:
 # Install dependencies
 pnpm install
 
-# Start both applications concurrently
+# Start all applications concurrently
 pnpm dev
 
 # Or start individually
-pnpm dev:host    # Host app on http://localhost:3000
-pnpm dev:remote  # Remote app on http://localhost:3001
+pnpm dev:host       # Host app on http://localhost:3000
+pnpm dev:remote     # Remote app on http://localhost:3001
+pnpm dev:analytics  # Analytics app on http://localhost:3002
 ```
 
 ### Testing
@@ -117,6 +124,13 @@ remotes: {
     entryGlobalName: 'remote',
     shareScope: 'default',
   },
+  analytics: {
+    type: 'module',
+    name: 'analytics',
+    entry: 'http://localhost:3002/remoteEntry.js',
+    entryGlobalName: 'analytics',
+    shareScope: 'default',
+  },
 }
 ```
 
@@ -129,6 +143,47 @@ exposes: {
   './RemoteApp': './src/App.tsx',
 }
 ```
+
+**Analytics Configuration:**
+
+```typescript
+exposes: {
+  './MetricsSummary': './src/components/MetricsSummary.tsx',
+  './AnalyticsPage': './src/components/AnalyticsPage.tsx',
+  './AnalyticsApp': './src/App.tsx',
+}
+```
+
+### Multi-Remote Architecture
+
+This setup demonstrates a scalable multi-remote architecture:
+
+#### 🏠 **Host Application (localhost:3000)**
+
+- Main application shell and orchestrator
+- Consumes components from multiple remote applications
+- Provides shared navigation, theming, and routing
+- Implements lazy loading and error boundaries for remote components
+
+#### 👥 **Remote Application (localhost:3001)**
+
+- User management microfrontend
+- Exposes UserCard component and FederatedPage
+- Demonstrates user data fetching and display patterns
+
+#### 📊 **Analytics Application (localhost:3002)**
+
+- Business metrics and analytics microfrontend
+- Exposes MetricsSummary widget and AnalyticsPage
+- Demonstrates dashboard patterns with charts and data visualization
+
+#### 🔄 **Key Benefits:**
+
+- **Independent Development**: Each team can develop, test, and deploy independently
+- **Technology Flexibility**: Different remotes can use different versions of dependencies
+- **Runtime Composition**: Components are loaded dynamically at runtime
+- **Shared Standards**: Common theming, routing, and state management patterns
+- **Fault Isolation**: Remote failures don't crash the entire application
 
 ### Shared Dependencies
 

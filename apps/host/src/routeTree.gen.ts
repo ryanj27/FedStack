@@ -6,6 +6,8 @@ import { RootComponent } from './routes/__root';
 import { IndexComponent } from './routes/index';
 import { UsersComponent } from './routes/users';
 import { FederatedComponent } from './routes/federated';
+// ADDED: Analytics route component for multi-remote federation
+import { AnalyticsComponent } from './routes/analytics';
 import Debug from './debug';
 
 // Create the root route
@@ -38,10 +40,18 @@ const debugRoute = createRoute({
   component: Debug,
 });
 
+// ADDED: Analytics route for multi-remote federation
+const analyticsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/analytics',
+  component: AnalyticsComponent,
+});
+
 // Create the route tree
 export const routeTree = rootRoute.addChildren([
   indexRoute,
   usersRoute,
   federatedRoute,
   debugRoute,
+  analyticsRoute,
 ]);

@@ -23,3 +23,25 @@ declare module 'remote/RemoteApp' {
   const RemoteApp: ComponentType;
   export default RemoteApp;
 }
+
+// ADDED: Analytics remote module declarations
+declare module 'analytics/MetricsSummary' {
+  import { ComponentType } from 'react';
+
+  const MetricsSummary: ComponentType;
+  export default MetricsSummary;
+}
+
+declare module 'analytics/AnalyticsPage' {
+  import { ComponentType } from 'react';
+
+  const AnalyticsPage: ComponentType;
+  export default AnalyticsPage;
+}
+
+declare module 'analytics/AnalyticsApp' {
+  import { ComponentType } from 'react';
+
+  const AnalyticsApp: ComponentType;
+  export default AnalyticsApp;
+}

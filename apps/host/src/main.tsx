@@ -1,5 +1,5 @@
 // Main entry point for Host application
-// Sets up TanStack Start routing with Material UI theming
+// Sets up TanStack Router routing with Material UI theming
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
