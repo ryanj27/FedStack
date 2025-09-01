@@ -1,4 +1,4 @@
-# FedStack ✅
+# fedstack ✅
 
 _Modern React + TypeScript Microfrontend Architecture_
 
