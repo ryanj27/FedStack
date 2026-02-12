@@ -12,6 +12,9 @@ jobs:
   package-vsix:
     name: Build and Package VSIX
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout code
