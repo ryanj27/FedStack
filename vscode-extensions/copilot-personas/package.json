@@ -1,0 +1,50 @@
+{
+  "name": "copilot-personas",
+  "displayName": "Copilot Personas",
+  "description": "Use repository-defined Copilot personas to enhance your coding experience",
+  "version": "0.1.0",
+  "publisher": "fedstack",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilot-personas.selectPersona",
+        "title": "Select Copilot Persona"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilot-personas.selectPersona",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "typescript": "^5.1.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

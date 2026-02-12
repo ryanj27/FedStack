@@ -278,6 +278,61 @@ Possible improvements and extensions:
 - Test each remote application independently before integration
 - Monitor console for federation loading errors
 
+## Copilot Personas
+
+This repository includes a Copilot persona system to enhance your development experience with context-aware AI assistance.
+
+### Available Personas
+
+- **Software Engineer**: Expert in implementing features, writing clean code, and debugging
+- **Software Architect**: Expert in system design, architecture patterns, and scalability
+- **Cloud Architect**: Expert in cloud infrastructure and deployment strategies
+- **DevOps Engineer**: Expert in CI/CD, automation, and developer productivity
+
+### Using the CLI
+
+Start a chat with a persona using the command line:
+
+```bash
+# Use default persona
+node scripts/start-chat.js "How do I implement authentication?"
+
+# Select a specific persona
+node scripts/start-chat.js --persona cloud_architect "How should I deploy this app?"
+
+# Use path-based persona selection
+node scripts/start-chat.js --file apps/host/src/App.tsx "Review this component"
+
+# List available personas
+node scripts/start-chat.js --list
+
+# Get help
+node scripts/start-chat.js --help
+```
+
+The CLI supports multiple selection methods (in order of precedence):
+
+1. `--persona` flag
+2. `COPILOT_PERSONA` environment variable
+3. Path-based mapping from `.copilot/config.yaml`
+4. Default persona from config
+
+### VS Code Extension
+
+A VS Code extension is included in `vscode-extensions/copilot-personas/`:
+
+1. Open the extension folder in VS Code
+2. Press F5 to launch Extension Development Host
+3. Use "Select Copilot Persona" command to choose a persona
+4. The system prompt is copied to clipboard
+5. Paste into GitHub Copilot Chat to start
+
+For more details, see `vscode-extensions/copilot-personas/README.md`.
+
+### Configuration
+
+Personas are defined in `.copilot/personas/` and configured in `.copilot/config.yaml`. You can customize path mappings to automatically suggest personas based on the files you're working on.
+
 ## Documentation
 
 Detailed documentation is available in the [docs](./docs) directory:
