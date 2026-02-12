@@ -4,6 +4,10 @@
   "description": "Quick access to Copilot personas with workspace defaults and auto-copy-on-open",
   "version": "0.1.0",
   "publisher": "fedstack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanj27/fedstack-ui"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -60,6 +64,7 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.80.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
