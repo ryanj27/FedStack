@@ -2,6 +2,7 @@
   "name": "fedstack",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Production-quality React + TypeScript multi-app setup with TanStack Router and Module Federation",
   "workspaces": [
     "apps/*",
@@ -12,16 +13,22 @@
     "dev:host": "cd apps/host && pnpm dev",
     "dev:remote": "cd apps/remote && pnpm dev",
     "dev:analytics": "cd apps/analytics && pnpm dev",
+    "dev:versions": "concurrently \"pnpm serve:versions\" \"VITE_USE_VERSIONED=true pnpm dev:host\"",
     "build": "pnpm build:remote && pnpm build:analytics && pnpm build:host",
     "build:host": "cd apps/host && pnpm build",
     "build:remote": "cd apps/remote && pnpm build",
     "build:analytics": "cd apps/analytics && pnpm build",
+    "build:versions": "./scripts/build-versioned.sh analytics 1.0.0 && ./scripts/build-versioned.sh analytics 1.1.0",
+    "build:version": "./scripts/build-versioned.sh",
+    "promote:auto": "./scripts/promote-auto.sh",
+    "prepare:next": "./scripts/prepare-next.sh",
+    "serve:versions": "node scripts/serve-versions.js",
     "test": "pnpm -r test",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "pnpm lint --fix",
     "format": "prettier --write .",
     "type-check": "pnpm -r type-check",
-    "clean": "pnpm -r clean && rm -rf node_modules"
+    "clean": "pnpm -r clean && rm -rf node_modules dist-versions"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",

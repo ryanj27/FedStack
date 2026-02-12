@@ -60,6 +60,22 @@ pnpm dev:remote
 pnpm dev:analytics
 ```
 
+**Blue/Green Development** (Versioned Builds):
+
+```bash
+# Build versioned analytics apps
+pnpm build:versions  # Creates v1.0.0 and v1.1.0
+
+# Start version server + host together
+pnpm dev:versions
+
+# Or start separately:
+pnpm serve:versions  # Version server on port 3100
+pnpm dev:host        # Host app on port 3000
+```
+
+See [docs/VERSIONED_DEPLOYMENT.md](./docs/VERSIONED_DEPLOYMENT.md) for details.
+
 ### Production Build
 
 Build all applications:
@@ -74,6 +90,16 @@ Build individually:
 pnpm build:host
 pnpm build:remote
 pnpm build:analytics
+```
+
+Build versioned deployments:
+
+```bash
+# Build specific version
+pnpm build:version analytics 1.2.0
+
+# Build both blue/green versions
+pnpm build:versions
 ```
 
 ### Testing
@@ -108,6 +134,16 @@ pnpm type-check
 - Shared dependencies (React, MUI, TanStack libraries) across all applications
 - Independent deployment capabilities for each microfrontend
 - Multi-remote architecture demonstrating scalable federation patterns
+
+### Blue/Green Deployment ⭐ NEW
+
+- **Zero-downtime deployments** with instant traffic switching
+- **Versioned builds** simulating Azure Blob Storage structure
+- **Version folders** (v1.0.0, v1.1.0, etc.) for immutable deployments
+- **Visual deployment control panel** for managing blue/green slots
+- **Instant rollback capability** for production safety
+- **Static file server** serving versioned builds on port 3100
+- **Production-ready** - mirrors Azure Container Storage workflow
 
 ### Theme Integration
 
@@ -178,28 +214,28 @@ pnpm type-check
 
 ## Environment Variables
 
-### Host Application (.env)
+All applications work with sensible defaults and **do not require** environment variables for local development. Environment variables are optional and can be used to override defaults.
+
+### Host Application (Optional)
+
+The host application has defaults configured in `apps/host/src/config/remote-versions.ts`. To override:
+
+Create `apps/host/.env`:
 
 ```env
-VITE_API_URL=http://localhost:3001/api
-VITE_APP_NAME=Host Application
-VITE_REMOTE_URL=http://localhost:3001
-VITE_ANALYTICS_URL=http://localhost:3002
+# Blue/Green Deployment - Versioned Builds (Optional Overrides)
+# Default: http://localhost:3100/analytics/v1.0.0/remoteEntry.js
+VITE_ANALYTICS_BLUE_URL=http://localhost:3100/analytics/v1.0.0/remoteEntry.js
+
+# Default: http://localhost:3100/analytics/v1.1.0/remoteEntry.js
+VITE_ANALYTICS_GREEN_URL=http://localhost:3100/analytics/v1.1.0/remoteEntry.js
+
+# Production example:
+# VITE_ANALYTICS_BLUE_URL=https://cdn.example.com/analytics/v1.0.0/remoteEntry.js
+# VITE_ANALYTICS_GREEN_URL=https://cdn.example.com/analytics/v1.1.0/remoteEntry.js
 ```
 
-### Remote Application (.env)
-
-```env
-VITE_API_URL=http://localhost:3001/api
-VITE_APP_NAME=Remote Application
-```
-
-### Analytics Application (.env)
-
-```env
-VITE_API_URL=http://localhost:3001/api
-VITE_APP_NAME=Analytics Application
-```
+**Note**: The versioned deployment setup uses the static file server on port 3100 serving from `dist-versions/`. See [Versioned Deployment Guide](./docs/VERSIONED_DEPLOYMENT.md) for details.
 
 ## Performance Considerations
 
@@ -275,6 +311,7 @@ node scripts/start-chat.js --help
 ```
 
 The CLI supports multiple selection methods (in order of precedence):
+
 1. `--persona` flag
 2. `COPILOT_PERSONA` environment variable
 3. Path-based mapping from `.copilot/config.yaml`
@@ -295,6 +332,16 @@ For more details, see `vscode-extensions/copilot-personas/README.md`.
 ### Configuration
 
 Personas are defined in `.copilot/personas/` and configured in `.copilot/config.yaml`. You can customize path mappings to automatically suggest personas based on the files you're working on.
+
+## Documentation
+
+Detailed documentation is available in the [docs](./docs) directory:
+
+- **[Version Promotion Guide](./docs/PROMOTION_GUIDE.md)** - 📘 **START HERE** - Complete step-by-step promotion workflow
+- **[Versioned Deployment Guide](./docs/VERSIONED_DEPLOYMENT.md)** - Technical details of blue/green deployment architecture
+- **[Blue/Green Quick Reference](./docs/BLUE_GREEN_QUICKREF.md)** - Quick reference card for common deployment tasks
+- **[Architecture Diagram](./docs/ARCHITECTURE_DIAGRAM.md)** - Visual system architecture and deployment flow diagrams
+- **[Testing Guide](./docs/TESTING_GUIDE.md)** - Testing strategies and best practices
 
 ## License
 
