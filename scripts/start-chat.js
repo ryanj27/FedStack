@@ -219,13 +219,13 @@ function selectPersona(args, config) {
     for (const mapping of config.path_mappings) {
       if (typeof mapping === 'object' && mapping.path && mapping.persona) {
         // Convert glob pattern to regex
-        // First handle ** and *, then escape other special chars
+        // Use unique null byte markers to avoid conflicts with actual path content
         let pattern = mapping.path
-          .replace(/\*\*/g, '<<<GLOBSTAR>>>')      // Temporarily replace **
-          .replace(/\*/g, '<<<STAR>>>')            // Temporarily replace *
+          .replace(/\*\*/g, '\x00GLOBSTAR\x00')    // Temporarily replace **
+          .replace(/\*/g, '\x00STAR\x00')          // Temporarily replace *
           .replace(/[.+?^${}()|[\]\\]/g, '\\$&')   // Escape regex special chars
-          .replace(/<<<GLOBSTAR>>>/g, '.*')        // ** matches anything including /
-          .replace(/<<<STAR>>>/g, '[^/]*');        // * matches anything except /
+          .replace(/\x00GLOBSTAR\x00/g, '.*')      // ** matches anything including /
+          .replace(/\x00STAR\x00/g, '[^/]*');      // * matches anything except /
         
         const regex = new RegExp(`^${pattern}$`);
         
@@ -265,7 +265,8 @@ async function sendToOpenAI(systemPrompt, userMessage) {
     console.log('To make real API calls, set your OpenAI API key:');
     console.log('  export OPENAI_API_KEY=your-api-key-here');
     console.log('\nThen install the OpenAI SDK:');
-    console.log('  npm install openai');
+    console.log('  pnpm add openai');
+    console.log('  (or npm install openai)');
     return;
   }
   

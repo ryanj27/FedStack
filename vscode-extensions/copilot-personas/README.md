@@ -16,7 +16,7 @@ A VS Code extension that makes it easy to use repository-defined Copilot persona
 3. **Select a Persona**:
    - Use the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
    - Type "Select Copilot Persona"
-   - Or use the keyboard shortcut: `Ctrl+Shift+P Ctrl+Shift+C` (Mac: `Cmd+Shift+P Cmd+Shift+C`)
+   - Or use the keyboard shortcut: `Ctrl+Alt+C` (Mac: `Cmd+Alt+C`)
 4. **Choose from available personas** in the quick pick menu
 5. **The system prompt is copied to clipboard** and Copilot Chat opens (if available)
 6. **Paste the prompt** into Copilot Chat to start a conversation with that persona
