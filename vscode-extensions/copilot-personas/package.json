@@ -1,0 +1,66 @@
+{
+  "name": "copilot-personas",
+  "displayName": "Copilot Personas",
+  "description": "Load and copy Copilot persona system prompts to clipboard",
+  "version": "0.1.0",
+  "publisher": "fedstack",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "title": "Copilot Personas: Select Persona"
+      },
+      {
+        "command": "copilotPersonas.selectAndOpenChat",
+        "title": "Copilot Personas: Select Persona and Open Chat"
+      },
+      {
+        "command": "copilotPersonas.recopyLastPersona",
+        "title": "Copilot Personas: Recopy Last Persona"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "key": "ctrl+alt+p",
+        "mac": "ctrl+alt+p"
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Personas",
+      "properties": {
+        "copilotPersonas.defaultPersona": {
+          "type": "string",
+          "default": "",
+          "description": "Default persona to use (e.g., 'principal_software_engineer'). If set and autoCopyOnOpen is true, this persona will be copied to clipboard on workspace open."
+        },
+        "copilotPersonas.autoCopyOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically copy the default persona to clipboard when opening the workspace (once per session)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package:vsix": "vsce package"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
