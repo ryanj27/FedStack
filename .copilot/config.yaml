@@ -1,0 +1,6 @@
+default_persona: "principal_software_engineer"
+path_mappings:
+  "infrastructure/": "principal_sre"
+  "infra/": "principal_sre"
+  "packages/cloud/": "principal_cloud_architect"
+  "packages/frontend/": "principal_frontend_engineer"
