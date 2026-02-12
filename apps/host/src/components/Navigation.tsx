@@ -18,6 +18,7 @@ import {
   Apps as AppsIcon,
   BugReport as DebugIcon,
   Analytics as AnalyticsIcon,
+  SwapHoriz as DeploymentIcon,
 } from '@mui/icons-material';
 import { Link } from '@tanstack/react-router';
 import { useTheme } from '../theme/ThemeContext';
@@ -68,6 +69,15 @@ export const Navigation: React.FC = () => {
             startIcon={<AnalyticsIcon />}
           >
             Analytics
+          </Button>
+
+          <Button
+            color="inherit"
+            component={Link}
+            to="/deployment"
+            startIcon={<DeploymentIcon />}
+          >
+            Deploy
           </Button>
 
           <Button

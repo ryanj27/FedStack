@@ -52,7 +52,7 @@ const AnalyticsPage: React.FC = () => {
     <Container maxWidth="xl">
       <Box sx={{ mb: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom>
-          Analytics Dashboard
+          Analytics Dashboard New
         </Typography>
         <Typography variant="h6" color="text.secondary">
           Comprehensive insights and metrics for your business
