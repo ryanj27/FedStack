@@ -1,3 +1,6 @@
 **/.env
 **/node_modules/
 **/.__mf__*
+**/*.vsix
+vscode-extensions/**/out/
+vscode-extensions/**/dist/
