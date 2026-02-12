@@ -1,0 +1,6 @@
+default_persona: "software_engineer"
+path_mappings:
+  "infrastructure/": "devops_engineer"
+  "infra/": "devops_engineer"
+  "packages/cloud/": "cloud_architect"
+  "packages/frontend/": "software_engineer"
