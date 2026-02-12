@@ -1,0 +1,49 @@
+name: Package VS Code Extension
+
+on:
+  push:
+    branches:
+      - main
+      - 'copilot/**'
+    paths:
+      - 'vscode-extensions/copilot-personas/**'
+      - '.github/workflows/package-vsix.yaml'
+  pull_request:
+    paths:
+      - 'vscode-extensions/copilot-personas/**'
+      - '.github/workflows/package-vsix.yaml'
+  workflow_dispatch:
+
+jobs:
+  package-vsix:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'vscode-extensions/copilot-personas/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: vscode-extensions/copilot-personas
+        run: npm install
+
+      - name: Compile TypeScript
+        working-directory: vscode-extensions/copilot-personas
+        run: npm run compile
+
+      - name: Package extension
+        working-directory: vscode-extensions/copilot-personas
+        run: npx vsce package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: copilot-personas-vsix
+          path: vscode-extensions/copilot-personas/*.vsix
+          if-no-files-found: error

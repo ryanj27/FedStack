@@ -1,0 +1,74 @@
+{
+  "name": "copilot-personas",
+  "displayName": "Copilot Personas",
+  "description": "Quick access to Copilot personas with workspace defaults and auto-copy-on-open",
+  "version": "0.1.0",
+  "publisher": "fedstack",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "title": "Copilot Personas: Select Persona"
+      },
+      {
+        "command": "copilotPersonas.selectAndOpenChat",
+        "title": "Copilot Personas: Select Persona and Open Chat"
+      },
+      {
+        "command": "copilotPersonas.recopyLastPersona",
+        "title": "Copilot Personas: Re-copy Last Persona"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilotPersonas.selectAndOpenChat",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Personas",
+      "properties": {
+        "copilotPersonas.defaultPersona": {
+          "type": "string",
+          "default": "",
+          "description": "Default persona to use (filename without .yaml extension). If empty, uses config.yaml default."
+        },
+        "copilotPersonas.autoCopyOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically copy the default persona to clipboard when VS Code opens."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package:vsix": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/vsce": "^2.22.0",
+    "eslint": "^8.50.0",
+    "typescript": "^5.2.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
