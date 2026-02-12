@@ -1,3 +1,7 @@
 **/.env
 **/node_modules/
 **/.__mf__*
+
+# VS Code extension build artifacts
+vscode-extensions/**/out/
+vscode-extensions/**/*.vsix

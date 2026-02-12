@@ -1,0 +1,21 @@
+# Copilot Persona Configuration
+# This file defines the default persona and path mappings for the repository
+
+# Default persona to use when no specific persona is selected
+default_persona: software_engineer
+
+# Optional: Map file paths to specific personas
+# When working in these paths, the corresponding persona will be suggested
+path_mappings:
+  - path: apps/**
+    persona: software_engineer
+  - path: packages/**
+    persona: software_engineer
+  - path: "*.md"
+    persona: software_architect
+  - path: .github/**
+    persona: devops_engineer
+  - path: vite.config.ts
+    persona: software_architect
+  - path: package.json
+    persona: devops_engineer
