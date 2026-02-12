@@ -83,7 +83,9 @@ function parseYAML(content) {
       currentValue = '';
     } else if (inMultiline) {
       if (line.startsWith('  ') || line.startsWith('\t')) {
-        currentValue += line.substring(2) + '\n';
+        // Handle both space and tab indentation
+        const content = line.startsWith('\t') ? line.substring(1) : line.substring(2);
+        currentValue += content + '\n';
       } else {
         result[currentKey] = currentValue.trim();
         inMultiline = false;
@@ -97,7 +99,9 @@ function parseYAML(content) {
       } else if (line.match(/^\s*-\s+/)) {
         // Array item
         if (!result[currentKey]) result[currentKey] = [];
-        result[currentKey].push(line.trim().substring(2).replace(/^"(.*)"$/, '$1'));
+        const trimmedLine = line.trim();
+        const content = trimmedLine.substring(2).replace(/^"(.*)"$/, '$1');
+        result[currentKey].push(content);
       } else {
         const [key, ...valueParts] = line.split(':');
         if (valueParts.join(':').trim()) {

@@ -132,7 +132,7 @@ When changes are pushed to the `copilot/personas` branch, a GitHub Actions workf
 
 To download the `.vsix` artifact:
 
-1. Go to the [Actions tab](../../actions) in the GitHub repository
+1. Go to the Actions tab in the GitHub repository (https://github.com/ryanj27/fedstack-ui/actions)
 2. Click on the latest "Package VS Code Extension" workflow run
 3. Scroll down to the "Artifacts" section
 4. Download the `copilot-personas-vsix` artifact
