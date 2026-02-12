@@ -1,29 +1,5 @@
-**/.env
-**/node_modules/
-**/.__mf__*
-
-# Build outputs
-**/dist/
-dist-versions/
-**/*.tsbuildinfo
-
-# Logs
-*.log
-*-debug.log*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Editor
-.vscode/*
-!.vscode/settings.json
-.idea/
-*.swp
-*.swo
-
-# Test
-**/coverage/
-
-# Temporary
-*.tmp
+.vscode/
+node_modules/
+.vs/
+out/
+*.vsix

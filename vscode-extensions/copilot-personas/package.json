@@ -1,0 +1,68 @@
+{
+  "name": "copilot-personas",
+  "displayName": "Copilot Personas",
+  "description": "Pick repo personas and copy their system prompt to the clipboard for Copilot Chat.",
+  "version": "0.0.1",
+  "publisher": "ryanj27",
+  "engines": { "vscode": "^1.60.0" },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:copilotPersonas.selectPersona",
+    "onCommand:copilotPersonas.selectAndOpenChat",
+    "onCommand:copilotPersonas.recopyLastPersona",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "title": "Copilot: Copy Persona to Clipboard"
+      },
+      {
+        "command": "copilotPersonas.selectAndOpenChat",
+        "title": "Copilot: Copy Persona and Open Chat"
+      },
+      {
+        "command": "copilotPersonas.recopyLastPersona",
+        "title": "Copilot: Re-copy Last Persona to Clipboard"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "key": "ctrl+alt+p",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Copilot Personas",
+      "properties": {
+        "copilotPersonas.defaultPersona": {
+          "type": "string",
+          "default": "",
+          "description": "Default persona id to copy on open when autoCopyOnOpen is true."
+        },
+        "copilotPersonas.autoCopyOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically copy the default persona to the clipboard when the workspace opens."
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "scripts": {
+    "compile": "tsc -p . || true",
+    "package:vsix": "npx vsce package"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0",
+    "vscode": "^1.1.37",
+    "@types/node": "^16.0.0",
+    "@types/vscode": "^1.60.0"
+  }
+}
