@@ -26,8 +26,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: 'vscode-extensions/copilot-personas/package-lock.json'
 
       - name: Install dependencies
         working-directory: vscode-extensions/copilot-personas
@@ -39,7 +37,7 @@ jobs:
 
       - name: Package extension
         working-directory: vscode-extensions/copilot-personas
-        run: npx vsce package
+        run: npx vsce package --allow-missing-repository --no-yarn
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
