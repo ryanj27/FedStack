@@ -245,7 +245,45 @@ VITE_ANALYTICS_GREEN_URL=http://localhost:3100/analytics/v1.1.0/remoteEntry.js
 - Emotion-based MUI styles work efficiently with Module Federation
 - Multi-remote architecture with independent deployment cycles
 
+## Copilot Personas
+
+This repository includes a comprehensive Copilot persona management system to enhance AI-assisted development workflows.
+
+### Features
+
+- **📁 Persona Configuration**: Predefined personas for different engineering roles (Software Engineer, Software Architect, Cloud Architect, DevOps Engineer)
+- **🔧 CLI Tool**: Node.js script to select personas and start AI chat sessions via OpenAI API
+- **🎨 VS Code Extension**: Quick persona selection with clipboard copy and workspace defaults
+- **🔄 CI/CD**: GitHub Actions workflow to package the extension as a `.vsix` file
+
+### Quick Start
+
+#### Using the CLI
+
+```bash
+# List available personas
+node scripts/start-chat.js --list
+
+# Chat with a specific persona (requires OPENAI_API_KEY)
+export OPENAI_API_KEY="your-key-here"
+node scripts/start-chat.js --persona software_engineer "How do I refactor this component?"
+
+# Interactive mode
+node scripts/start-chat.js --interactive
+```
+
+#### Using the VS Code Extension
+
+1. Download the `.vsix` from GitHub Actions artifacts
+2. Install in VS Code: Extensions > ... > Install from VSIX
+3. Press `Ctrl+Alt+P` (or `Cmd+Alt+P` on Mac) to select a persona
+4. The persona prompt is copied to your clipboard
+5. Paste it into GitHub Copilot Chat
+
+See [vscode-extensions/copilot-personas/README.md](vscode-extensions/copilot-personas/README.md) for full documentation.
+
 ## Future Enhancements
+
 
 Possible improvements and extensions:
 

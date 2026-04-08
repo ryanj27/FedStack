@@ -1,0 +1,75 @@
+{
+  "name": "copilot-personas",
+  "displayName": "Copilot Personas",
+  "description": "Load and use Copilot personas for enhanced AI chat experiences",
+  "version": "0.1.0",
+  "publisher": "fedstack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanj27/fedstack-ui.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "title": "Copilot Personas: Select Persona"
+      },
+      {
+        "command": "copilotPersonas.selectAndOpenChat",
+        "title": "Copilot Personas: Select Persona and Open Chat"
+      },
+      {
+        "command": "copilotPersonas.recopyLastPersona",
+        "title": "Copilot Personas: Recopy Last Persona"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilotPersonas.selectPersona",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Personas",
+      "properties": {
+        "copilotPersonas.defaultPersona": {
+          "type": "string",
+          "default": "",
+          "description": "Default persona to use when workspace is opened (e.g., 'software_engineer')"
+        },
+        "copilotPersonas.autoCopyOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically copy the default persona to clipboard when workspace is opened"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package:vsix": "vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
